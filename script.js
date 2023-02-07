@@ -6,6 +6,7 @@ let iterations = 0;
 let interval = null;
 
 container.addEventListener("mouseenter", () => {
+  clearInterval(interval);
   interval = setInterval(() => {
     container.textContent = container.textContent
       .split("")
