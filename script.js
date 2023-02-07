@@ -1,26 +1,30 @@
 const container = document.querySelector("main");
 const letters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
 const initialState = "VICTOR IBIRONKE";
-let count = 0;
+const { log, count } = console;
+let iterations = 0;
 let interval = null;
 
 container.addEventListener("mouseenter", () => {
   interval = setInterval(() => {
     container.textContent = container.textContent
       .split("")
-      .map((letter, index) => {
-        if (index < count) {
-          return initialState[index];
-        }
-
-        return letters[Math.floor(Math.random() * 26)];
-      })
+      .map((_) => letters[Math.floor(Math.random() * 26)])
       .join("");
 
-    if (count >= initialState.length) {
-      clearInterval(interval);
+    iterations += 1 / 2;
+
+    const splitted = container.textContent.split("");
+
+    for (let i = 0; i < Math.floor(iterations); i++) {
+      splitted[i] = initialState[i];
     }
 
-    count += 1 / 3;
-  }, 30);
+    container.textContent = splitted.join("");
+
+    if (iterations == 15) {
+      iterations = 0;
+      clearInterval(interval);
+    }
+  }, 50);
 });
